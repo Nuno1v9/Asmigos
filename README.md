@@ -157,3 +157,33 @@ Focar apenas no essencial:
 ## ✅ Conclusão
 Asmigos é um jogo social simples e realista para desenvolver em Swift com SpriteKit.  
 A ideia principal é fácil de perceber, as mecânicas são claras, e o projeto pode ser reduzido a um MVP viável para um trabalho de estudante.
+
+---
+
+## 🧱 SwiftUI App (implementado)
+
+Foi criada uma implementação completa do MVP em SwiftUI, com o fluxo dos ecrãs do mockup e lógica da ronda:
+
+- `App/AsmigosApp.swift`
+- `App/RootView.swift`
+- `App/GameViewModel.swift`
+- `App/Models.swift`
+- `App/QuestionManager.swift`
+- `App/questions.json`
+- `App/Views/*` (splash, menu, lobby, pergunta, votação, resultado e vencedor)
+
+### Inclui
+- Criação e entrada em lobby local
+- Seleção aleatória de impostor por ronda
+- Pergunta real/falsa por jogador
+- Votação sequencial por jogador
+- Minijogo final (esquerda/centro/direita)
+- Sistema de pontuação
+- Vitória final ao chegar a 3 pontos
+
+### Como abrir no Xcode
+1. Criar um projeto iOS App (SwiftUI, Swift).
+2. Apagar os ficheiros de exemplo do projeto.
+3. Copiar os ficheiros da pasta `App/` para dentro do target.
+4. Confirmar que `questions.json` está em **Copy Bundle Resources**.
+5. Compilar e correr no simulador.
