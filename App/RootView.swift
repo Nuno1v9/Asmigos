@@ -1,30 +1,46 @@
 import SwiftUI
 
 struct RootView: View {
-    @StateObject private var vm = GameViewModel()
+    @EnvironmentObject var vm: GameViewModel
 
     var body: some View {
-        switch vm.phase {
-        case .splash:
-            SplashView()
-        case .menu:
-            MenuView(vm: vm)
-        case .createLobby:
-            LobbyEntryView(vm: vm, isCreate: true)
-        case .joinLobby:
-            LobbyEntryView(vm: vm, isCreate: false)
-        case .lobby:
-            LobbyView(vm: vm)
-        case .question:
-            QuestionView(vm: vm)
-        case .voting:
-            VotingView(vm: vm)
-        case .reveal:
-            RevealView(vm: vm)
-        case .minigame:
-            MinigameView(vm: vm)
-        case .winner:
-            WinnerView(vm: vm)
+        Group {
+            switch vm.screen {
+            case .splash:
+                SplashView()
+            case .menu:
+                MenuView()
+            case .lobby:
+                LobbyView()
+            case .question:
+                QuestionView()
+                    .id(vm.roundID)
+            case .voting:
+                VotingView()
+                    .id(vm.roundID)
+            case .voteResult:
+                VoteResultView()
+                    .id(vm.roundID)
+            case .impostorChoice:
+                ImpostorChoiceView()
+                    .id(vm.roundID)
+            case .minigame:
+                MinigameView()
+                    .id(vm.roundID)
+            case .roundResult:
+                RoundResultView()
+                    .id(vm.roundID)
+            case .winner:
+                WinnerView()
+            case .minigamesMenu:
+                MinigamesMenuView()
+            case .bonusMinigame:
+                BonusMinigameView()
+                    .id(vm.roundID)
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black)
+        .animation(.easeInOut(duration: 0.25), value: vm.screen)
     }
 }

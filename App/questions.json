@@ -1,22 +1,42 @@
 [
   {
-    "fake": "Quem foi mais provável de acabar na prisão?",
-    "real": "Quem foi mais provável de destruir o carro todo?"
+    "real": "Maçã",
+    "fake": "Pera"
   },
   {
-    "fake": "Quem foi mais provável de nunca pagar uma rodada?",
-    "real": "Quem foi mais provável de pedir comida às 3 da manhã?"
+    "real": "Praia",
+    "fake": "Piscina"
   },
   {
-    "fake": "Quem foi mais provável de mentir no currículo?",
-    "real": "Quem foi mais provável de faltar ao trabalho por preguiça?"
+    "real": "Massa",
+    "fake": "Arroz"
   },
   {
-    "fake": "Quem foi mais provável de sumir da festa sem avisar?",
-    "real": "Quem foi mais provável de chegar atrasado a tudo?"
+    "real": "Cinema",
+    "fake": "Teatro"
   },
   {
-    "fake": "Quem foi mais provável de gastar tudo em festas?",
-    "real": "Quem foi mais provável de gastar tudo em comida?"
+    "real": "Gato",
+    "fake": "Cão"
+  },
+  {
+    "real": "Café",
+    "fake": "Chá"
+  },
+  {
+    "real": "Carro",
+    "fake": "Mota"
+  },
+  {
+    "real": "Livro",
+    "fake": "Revista"
+  },
+  {
+    "real": "Computador",
+    "fake": "Telemóvel"
+  },
+  {
+    "real": "Sol",
+    "fake": "Chuva"
   }
 ]

@@ -1,33 +1,47 @@
 import SwiftUI
 
 struct MenuView: View {
-    @ObservedObject var vm: GameViewModel
+    @EnvironmentObject var vm: GameViewModel
 
     var body: some View {
         ZStack {
-            AsmigosBackground()
-            VStack(spacing: 20) {
-                Spacer()
-                Text("Asmigos")
-                    .font(.system(size: 44, weight: .heavy))
-                    .foregroundStyle(.white)
+            Color.black.ignoresSafeArea()
+            VStack(spacing: 0) {
+                HStack {
+                    HStack(spacing: 6) {
+                        Text("💀🔥")
+                            .font(.system(size: 28))
+                        AsmigosLogo(size: 22)
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 28)
+                .padding(.top, 56)
 
-                Text("Entra numa sala ou cria a tua")
-                    .foregroundStyle(AsmigosTheme.lightText.opacity(0.85))
+                Spacer()
 
                 VStack(spacing: 12) {
-                    PrimaryButton(title: "Entrar em sala") {
-                        vm.phase = .joinLobby
-                    }
-                    PrimaryButton(title: "Criar sala") {
-                        vm.phase = .createLobby
-                    }
+                    AsmigosLogo(size: 58)
+                    Text("Descubra o impostor dentre os seus asmigos.")
+                        .font(.system(size: 15))
+                        .foregroundColor(.white.opacity(0.65))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 40)
                 }
-                .padding(.top, 12)
 
                 Spacer()
+
+                VStack(spacing: 18) {
+                    AsmigosButton(title: "JOGAR", color: Color(red: 0.6, green: 0.05, blue: 0.05)) {
+                        vm.screen = .lobby
+                    }
+                    AsmigosButton(title: "MINIJOGOS 1v1", color: Color(white: 0.18)) {
+                        vm.screen = .minigamesMenu
+                    }
+                }
+                .padding(.horizontal, 28)
+                .padding(.bottom, 60)
             }
-            .padding(24)
         }
     }
 }

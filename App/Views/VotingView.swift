@@ -1,57 +1,71 @@
 import SwiftUI
 
 struct VotingView: View {
-    @ObservedObject var vm: GameViewModel
-    @State private var voterIndex: Int = 0
-    @State private var selectedTarget: UUID?
+    @EnvironmentObject var vm: GameViewModel
+    @State private var selectedID: UUID?
+
+    private var voter: Player? { vm.currentVoter }
 
     var body: some View {
         ZStack {
-            AsmigosBackground()
-            VStack(spacing: 16) {
-                Text("Votação")
-                    .font(.title.bold())
-                    .foregroundStyle(.white)
+            Color.black.ignoresSafeArea()
+            VStack(spacing: 24) {
+                HStack {
+                    AsmigosLogo(size: 26)
+                    Spacer()
+                    Text("Voto \(vm.currentVoterIndex + 1)/\(vm.alivePlayers.count)")
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundColor(.white.opacity(0.4))
+                }
+                .padding(.horizontal, 28)
+                .padding(.top, 56)
 
-                if vm.players.indices.contains(voterIndex) {
-                    Text("Quem é o impostor para \(vm.players[voterIndex].name)?")
-                        .foregroundStyle(.white.opacity(0.85))
+                Text("VOTAÇÃO")
+                    .font(.system(size: 11, weight: .heavy))
+                    .foregroundColor(.white.opacity(0.35))
+                    .tracking(4)
+
+                if let voter {
+                    VStack(spacing: 16) {
+                        Text("\(voter.name), quem é o impostor?")
+                            .font(.system(size: 22, weight: .black))
+                            .italic()
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                        Image("char_\(voter.imageName)")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxWidth: 200, maxHeight: 200)
+                    }
+
+                    Text("Passa o telemóvel para \(voter.name)")
+                        .font(.system(size: 13))
+                        .foregroundColor(.white.opacity(0.35))
                 }
 
-                VStack(spacing: 10) {
-                    ForEach(vm.players) { player in
-                        Button {
-                            selectedTarget = player.id
-                        } label: {
-                            HStack {
-                                Text(player.name.uppercased())
-                                    .foregroundStyle(.white)
-                                Spacer()
-                                if selectedTarget == player.id {
-                                    Image(systemName: "checkmark.circle.fill")
-                                        .foregroundStyle(.green)
-                                }
+                ScrollView {
+                    VStack(spacing: 10) {
+                        ForEach(vm.alivePlayers.filter { $0.id != voter?.id }) { player in
+                            PlayerCard(player: player, isSelected: selectedID == player.id) {
+                                selectedID = player.id
                             }
-                            .padding(12)
-                            .background(AsmigosTheme.panel)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
                     }
+                    .padding(.horizontal, 28)
                 }
 
-                PrimaryButton(title: voterIndex == vm.players.count - 1 ? "Finalizar votos" : "Próximo votante") {
-                    guard vm.players.indices.contains(voterIndex), let selectedTarget else { return }
-                    let voterID = vm.players[voterIndex].id
-                    vm.castVote(voter: voterID, target: selectedTarget)
-                    self.selectedTarget = nil
-                    if voterIndex < vm.players.count - 1 {
-                        voterIndex += 1
-                    } else {
-                        vm.finishVoting()
+                if let selectedID, let voterID = voter?.id {
+                    AsmigosButton(title: "CONFIRMAR VOTO", color: Color(red: 0.6, green: 0.05, blue: 0.05)) {
+                        vm.submitVote(voterID: voterID, suspectID: selectedID)
                     }
+                    .padding(.horizontal, 28)
                 }
+
+                Spacer().frame(height: 40)
             }
-            .padding(24)
+        }
+        .onChange(of: vm.currentVoterIndex) { _, _ in
+            selectedID = nil
         }
     }
 }

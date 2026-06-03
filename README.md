@@ -162,28 +162,27 @@ A ideia principal é fácil de perceber, as mecânicas são claras, e o projeto 
 
 ## 🧱 SwiftUI App (implementado)
 
-Foi criada uma implementação completa do MVP em SwiftUI, com o fluxo dos ecrãs do mockup e lógica da ronda:
+Implementação em SwiftUI com o fluxo completo do jogo:
 
-- `App/AsmigosApp.swift`
-- `App/RootView.swift`
-- `App/GameViewModel.swift`
-- `App/Models.swift`
-- `App/QuestionManager.swift`
-- `App/questions.json`
-- `App/Views/*` (splash, menu, lobby, pergunta, votação, resultado e vencedor)
+- `AsmigosApp.swift`, `RootView.swift`, `GameViewModel.swift`, `Models.swift`
+- `QuestionManager.swift`, `questions.json`
+- `Views/*` — splash, menu, lobby, pergunta, votação, resultados, vencedor
+- Minijogo **TIMING — CATCH** (adivinhar fuga + barra de timing)
+- **Tap War** para desempates
 
 ### Inclui
-- Criação e entrada em lobby local
-- Seleção aleatória de impostor por ronda
-- Pergunta real/falsa por jogador
-- Votação sequencial por jogador
-- Minijogo final (esquerda/centro/direita)
-- Sistema de pontuação
-- Vitória final ao chegar a 3 pontos
+- Lobby local (mín. 3 jogadores)
+- Impostor com palavra falsa (sem aviso na UI)
+- Votação e sistema de vidas
+- Minijogo de timing + direção (esquerda / centro / direita)
+- Tap War quando dois jogadores acertam
+- Vitória aos 3 pontos
+
+### Estrutura do repositório
+- **Raiz (`teste/`)** — projeto Xcode ativo (`teste.xcodeproj`)
+- **`Asmigos/`** — cópia espelhada do código + README original + `App/` com os mesmos ficheiros
 
 ### Como abrir no Xcode
-1. Criar um projeto iOS App (SwiftUI, Swift).
-2. Apagar os ficheiros de exemplo do projeto.
-3. Copiar os ficheiros da pasta `App/` para dentro do target.
-4. Confirmar que `questions.json` está em **Copy Bundle Resources**.
-5. Compilar e correr no simulador.
+1. Abrir `teste.xcodeproj` na raiz desta pasta.
+2. Confirmar que `questions.json` está em **Copy Bundle Resources**.
+3. Compilar e correr no simulador (⌘R).
